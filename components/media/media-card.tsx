@@ -10,7 +10,7 @@ import { useI18n } from "@/components/i18n/language-provider";
 import { getEvent } from "@/content/events";
 import { pick } from "@/lib/i18n";
 import { formatDate } from "@/lib/utils";
-import type { MediaFormat, MediaItem } from "@/types";
+import type { MediaCategory, MediaFormat, MediaItem } from "@/types";
 
 const formatMeta: Record<MediaFormat, { Icon: typeof FileText; ctaKey: "readRelease" | "viewGallery" | "watch" | "listen" }> = {
   article: { Icon: FileText, ctaKey: "readRelease" },
@@ -19,12 +19,28 @@ const formatMeta: Record<MediaFormat, { Icon: typeof FileText; ctaKey: "readRele
   podcast: { Icon: Mic2, ctaKey: "listen" },
 };
 
+const categoryPreview: Record<MediaCategory, string> = {
+  announcement: "/media/universal/events/queen-of-the-ring-july-11-clean.png",
+  "press-conference": "/media/universal/youtube/choke-de-campeones-presser.jpg",
+  "open-workout": "/media/universal/backgrounds/up-training-gym.png",
+  "weigh-in": "/media/universal/instagram/instagram-reel-7.jpg",
+  faceoff: "/media/universal/instagram/instagram-reel-2.jpg",
+  "fight-night": "/media/universal/hero-reel-horizontal-v2-poster.jpg",
+  result: "/media/universal/youtube/bryan-perez-vs-michael-castro.jpg",
+  recap: "/media/universal/branded/up-branded-event.png",
+  highlight: "/media/universal/hero-reel-knockouts-v3-poster.jpg",
+  interview: "/media/universal/youtube/stephanie-pineiro-upinion.jpg",
+  podcast: "/media/universal/youtube/top-5-libra-ashleyann-lozada.jpg",
+  "sponsor-recap": "/media/universal/branded/up-branded-ops.png",
+};
+
 export function MediaCard({ item }: { item: MediaItem }) {
   const { t, locale } = useI18n();
   const { Icon, ctaKey } = formatMeta[item.format];
   const isVideo = item.format === "video";
   const isPlayable = item.format === "video" || item.format === "podcast";
   const relatedEvent = item.relatedEventSlug ? getEvent(item.relatedEventSlug) : undefined;
+  const previewUrl = item.thumbnailUrl ?? categoryPreview[item.category];
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-token-lg border border-line bg-surface shadow-[var(--shadow-sm)] transition-colors hover:border-line-2">
@@ -35,9 +51,9 @@ export function MediaCard({ item }: { item: MediaItem }) {
           backgroundImage: `radial-gradient(110% 90% at 70% -10%, hsl(${item.hue} 58% 30% / 0.5), transparent 60%), linear-gradient(180deg, hsl(${item.hue} 28% 13%), hsl(${item.hue} 34% 7%))`,
         }}
       >
-        {item.thumbnailUrl && (
+        {previewUrl && (
           <Image
-            src={item.thumbnailUrl}
+            src={previewUrl}
             alt=""
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -52,7 +68,7 @@ export function MediaCard({ item }: { item: MediaItem }) {
               {isVideo ? <Play className="size-6 translate-x-0.5" fill="currentColor" /> : <Mic2 className="size-6" />}
             </span>
           ) : (
-            !item.thumbnailUrl && <Icon className="size-12 text-white/20" />
+            !previewUrl && <Icon className="size-12 text-white/20" />
           )}
         </div>
 

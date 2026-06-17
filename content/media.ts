@@ -399,6 +399,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "queen-of-the-ring",
     relatedFighterSlugs: ["soledad-matthysse", "litzy-adilene-vazquez", "kiria-tapia"],
     source: "website",
+    thumbnailUrl: "/media/universal/events/queen-of-the-ring-july-11-clean.png",
     rightsStatus: "owned",
     isDemo: true,
     title: {
@@ -419,6 +420,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "noche-boricua",
     relatedFighterSlugs: ["noelia-figueroa", "keishla-marrero"],
     source: "website",
+    thumbnailUrl: "/media/universal/branded/up-branded-event.png",
     rightsStatus: "owned",
     isDemo: true,
     title: {
@@ -439,6 +441,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "ascenso",
     relatedFighterSlugs: ["yariel-quinones", "genesis-cordero"],
     source: "website",
+    thumbnailUrl: "/media/universal/sections/up-section-training.png",
     rightsStatus: "owned",
     isDemo: true,
     title: {
@@ -460,6 +463,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "raices",
     relatedFighterSlugs: ["andres-vazquez", "joel-nieves"],
     source: "manual",
+    thumbnailUrl: youtubeVideos[5].thumbnailSrc,
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -481,6 +485,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "raices",
     relatedFighterSlugs: ["bryan-otero"],
     source: "youtube",
+    thumbnailUrl: "/media/universal/backgrounds/up-training-gym.png",
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -501,6 +506,7 @@ export const mediaItems: MediaItem[] = [
     itemCount: 24,
     relatedEventSlug: "raices",
     source: "manual",
+    thumbnailUrl: instagramAssets[8].imageSrc,
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -522,6 +528,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "furia-boricua",
     relatedFighterSlugs: ["noelia-figueroa", "keishla-marrero"],
     source: "manual",
+    thumbnailUrl: instagramAssets[3].imageSrc,
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -544,6 +551,7 @@ export const mediaItems: MediaItem[] = [
     itemCount: 48,
     relatedEventSlug: "raices",
     source: "manual",
+    thumbnailUrl: "/media/universal/hero-reel-horizontal-v2-poster.jpg",
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -564,6 +572,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "raices",
     relatedFighterSlugs: ["andres-vazquez", "joel-nieves"],
     source: "website",
+    thumbnailUrl: youtubeVideos[0].thumbnailSrc,
     rightsStatus: "owned",
     isDemo: true,
     title: {
@@ -585,6 +594,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "raices",
     relatedFighterSlugs: ["andres-vazquez"],
     source: "youtube",
+    thumbnailUrl: youtubeVideos[1].thumbnailSrc,
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -606,6 +616,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "raices",
     relatedFighterSlugs: ["damian-burgos"],
     source: "youtube",
+    thumbnailUrl: "/media/universal/hero-reel-knockouts-v3-poster.jpg",
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -627,6 +638,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "origen",
     relatedFighterSlugs: ["yariel-quinones"],
     source: "youtube",
+    thumbnailUrl: youtubeVideos[2].thumbnailSrc,
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -648,6 +660,7 @@ export const mediaItems: MediaItem[] = [
     hue: 36,
     relatedEventSlug: "raices",
     source: "website",
+    thumbnailUrl: "/media/universal/branded/up-branded-event.png",
     rightsStatus: "owned",
     isDemo: true,
     title: {
@@ -669,6 +682,7 @@ export const mediaItems: MediaItem[] = [
     relatedEventSlug: "noche-boricua",
     relatedFighterSlugs: ["keishla-marrero"],
     source: "youtube",
+    thumbnailUrl: youtubeVideos[7].thumbnailSrc,
     rightsStatus: "generated",
     isDemo: true,
     title: {
@@ -688,6 +702,7 @@ export const mediaItems: MediaItem[] = [
     hue: 150,
     relatedFighterSlugs: ["bryan-otero"],
     source: "website",
+    thumbnailUrl: "/media/universal/backgrounds/up-training-gym.png",
     rightsStatus: "owned",
     isDemo: true,
     title: {
@@ -707,6 +722,7 @@ export const mediaItems: MediaItem[] = [
     hue: 44,
     relatedEventSlug: "raices",
     source: "website",
+    thumbnailUrl: "/media/universal/branded/up-branded-ops.png",
     rightsStatus: "owned",
     isDemo: true,
     title: {
