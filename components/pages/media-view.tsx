@@ -2,7 +2,28 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { Facebook, Instagram, Megaphone, Mic2, Music2, Play, Search, Swords, ClapperboardIcon, Youtube } from "lucide-react";
+import {
+  Archive,
+  BadgeCheck,
+  ClapperboardIcon,
+  Database,
+  Facebook,
+  FileVideo,
+  Instagram,
+  Layers3,
+  Megaphone,
+  Mic2,
+  Music2,
+  Play,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Swords,
+  Tag,
+  UploadCloud,
+  Youtube,
+  type LucideIcon,
+} from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/reveal";
@@ -12,12 +33,104 @@ import { ExternalLink } from "@/components/ui/external-link";
 import { YouTubeEmbed, YouTubeThumbnailCard } from "@/components/media/youtube-embed";
 import { useI18n } from "@/components/i18n/language-provider";
 import { getAllMedia, mediaPhase } from "@/lib/data";
+import { fighters } from "@/content/fighters";
 import { instagramAssets, instagramProfile, podcastConcepts, universalPromotionsTV, youtubeVideos } from "@/content/media";
 import { pick } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { MediaPhase } from "@/types";
 
 type PhaseFilter = "all" | MediaPhase;
+type VaultStatus = "ready" | "review" | "queue";
+type VaultRecord = {
+  source: string;
+  type: string;
+  title: string;
+  linkedTo: string;
+  output: string;
+  rights: string;
+  status: VaultStatus;
+  tags: string[];
+};
+
+const vaultSteps: {
+  icon: LucideIcon;
+  title: { en: string; es: string };
+  body: { en: string; es: string };
+}[] = [
+  {
+    icon: UploadCloud,
+    title: { en: "Ingest", es: "Ingesta" },
+    body: {
+      en: "YouTube fights, Instagram reels, Facebook posts, posters, photos, and podcast clips enter one clean queue.",
+      es: "Peleas de YouTube, reels de Instagram, posts de Facebook, afiches, fotos y clips del podcast entran a una cola limpia.",
+    },
+  },
+  {
+    icon: Tag,
+    title: { en: "Tag", es: "Etiquetar" },
+    body: {
+      en: "Every asset is tied to fighters, events, sponsors, source links, rights status, and publish-ready formats.",
+      es: "Cada activo se conecta a boxeadores, eventos, auspiciadores, fuentes, derechos y formatos listos para publicar.",
+    },
+  },
+  {
+    icon: Sparkles,
+    title: { en: "Package", es: "Empaquetar" },
+    body: {
+      en: "The vault turns raw coverage into fighter profiles, sponsor recaps, highlight clips, and press materials.",
+      es: "El vault convierte cobertura cruda en perfiles, reportes para auspiciadores, highlights y materiales de prensa.",
+    },
+  },
+];
+
+const vaultRecords: VaultRecord[] = [
+  {
+    source: "YouTube",
+    type: "Full fight",
+    title: "Johniel Ramos vs Alex Pallette",
+    linkedTo: "Johniel Ramos · Universal Promotions TV",
+    output: "Fighter page + clip queue",
+    rights: "Embed only",
+    status: "ready",
+    tags: ["full fight", "archive", "super featherweight"],
+  },
+  {
+    source: "Instagram",
+    type: "Reel",
+    title: "Ringside action from the main event",
+    linkedTo: "Fight-night reels · social highlights",
+    output: "Shorts/Reels/TikTok set",
+    rights: "Public source",
+    status: "ready",
+    tags: ["action", "social", "ringside"],
+  },
+  {
+    source: "Event",
+    type: "Poster",
+    title: "Queen of the Ring · July 11",
+    linkedTo: "Kiria Tapia · Coliseíto Pedrín Zorrilla",
+    output: "Event promo kit",
+    rights: "Owned asset",
+    status: "review",
+    tags: ["tickets", "poster", "San Juan"],
+  },
+  {
+    source: "Podcast",
+    type: "Long form",
+    title: "UPinion Dividida analysis",
+    linkedTo: "Universal Promotions TV · podcast growth",
+    output: "Transcript + sponsor reads",
+    rights: "Embed only",
+    status: "queue",
+    tags: ["podcast", "chapters", "sponsors"],
+  },
+];
+
+const statusCopy: Record<VaultStatus, { label: string; className: string }> = {
+  ready: { label: "Ready", className: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" },
+  review: { label: "Review", className: "border-gold/35 bg-gold/10 text-gold" },
+  queue: { label: "Queue", className: "border-blue-300/30 bg-blue-300/10 text-blue-200" },
+};
 
 function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -32,6 +145,176 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
     >
       {children}
     </button>
+  );
+}
+
+function MediaVaultSection({
+  indexedAssetCount,
+  rosterCount,
+  mediaCount,
+}: {
+  indexedAssetCount: number;
+  rosterCount: number;
+  mediaCount: number;
+}) {
+  const { locale } = useI18n();
+  const vaultStats = [
+    { value: `${indexedAssetCount}`, label: { en: "indexed assets", es: "activos indexados" } },
+    { value: `${rosterCount}`, label: { en: "fighter profiles linked", es: "perfiles enlazados" } },
+    { value: `${mediaCount}`, label: { en: "catalog records", es: "registros del catálogo" } },
+  ];
+
+  return (
+    <section className="border-b border-line bg-bg py-14 sm:py-16">
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <Reveal>
+            <div>
+              <span className="kicker inline-flex items-center gap-2">
+                <Database className="size-4 text-gold" />
+                Fight Media Vault
+              </span>
+              <h2 className="mt-3 max-w-2xl font-display text-[length:var(--step-2)] font-bold tracking-tight">
+                A searchable media system for every fighter, event, sponsor, and clip.
+              </h2>
+              <p className="mt-4 max-w-xl text-[length:var(--step-0)] text-fg-2">
+                Universal already has the raw material. The vault turns that archive into a working asset library: clean source links,
+                rights notes, roster connections, sponsor moments, and ready-to-publish packages.
+              </p>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                {vaultStats.map((stat) => (
+                  <div key={pick(stat.label, locale)} className="rounded-token border border-line bg-surface p-4">
+                    <span className="block font-display text-[length:var(--step-1)] font-bold text-fg">{stat.value}</span>
+                    <span className="mt-1 block text-[length:var(--step--2)] font-semibold uppercase tracking-[0.16em] text-fg-3">
+                      {pick(stat.label, locale)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 grid gap-3">
+                {vaultSteps.map((step, i) => (
+                  <Reveal key={pick(step.title, locale)} delay={i * 0.05}>
+                    <article className="flex gap-4 rounded-token border border-line bg-surface p-4">
+                      <span className="grid size-11 shrink-0 place-items-center rounded-token border border-gold/30 bg-gold/10 text-gold">
+                        <step.icon className="size-5" />
+                      </span>
+                      <span>
+                        <span className="block font-display text-[length:var(--step-0)] font-bold text-fg">
+                          {pick(step.title, locale)}
+                        </span>
+                        <span className="mt-1 block text-[length:var(--step--1)] text-fg-2">{pick(step.body, locale)}</span>
+                      </span>
+                    </article>
+                  </Reveal>
+                ))}
+              </div>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <ButtonLink href="/contact" size="md">
+                  Build this system
+                </ButtonLink>
+                <ButtonLink href="/fight-ops" size="md" variant="ghost">
+                  See fight ops
+                </ButtonLink>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <div className="overflow-hidden rounded-token-lg border border-line bg-surface shadow-[var(--shadow-md)]">
+              <div className="border-b border-line bg-bg-2 p-4 sm:p-5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="grid size-10 place-items-center rounded-token border border-gold/30 bg-gold/10 text-gold">
+                      <Archive className="size-5" />
+                    </span>
+                    <div>
+                      <h3 className="font-display text-[length:var(--step-1)] font-bold">Universal asset index</h3>
+                      <p className="text-[length:var(--step--2)] text-fg-3">YouTube · Instagram · Facebook · events · podcast</p>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1.5 text-[length:var(--step--2)] font-semibold text-emerald-300">
+                    <BadgeCheck className="size-3.5" />
+                    Source tracked
+                  </span>
+                </div>
+                <div className="mt-4 flex items-center gap-2 rounded-token border border-line bg-bg px-3 py-2 text-[length:var(--step--1)] text-fg-3">
+                  <Search className="size-4 text-gold" />
+                  <span>Search fighter, sponsor, event, clip, or rights status</span>
+                </div>
+              </div>
+
+              <div className="divide-y divide-line">
+                {vaultRecords.map((record) => {
+                  const status = statusCopy[record.status];
+                  return (
+                    <article key={`${record.source}-${record.title}`} className="p-4 transition-colors hover:bg-bg-2/70 sm:p-5">
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-bg px-2.5 py-1 text-[length:var(--step--2)] font-semibold text-fg-2">
+                              <FileVideo className="size-3.5 text-gold" />
+                              {record.source}
+                            </span>
+                            <span className="rounded-full border border-line bg-bg px-2.5 py-1 text-[length:var(--step--2)] font-semibold text-fg-3">
+                              {record.type}
+                            </span>
+                            <span className={cn("rounded-full border px-2.5 py-1 text-[length:var(--step--2)] font-semibold", status.className)}>
+                              {status.label}
+                            </span>
+                          </div>
+                          <h4 className="mt-3 font-display text-[length:var(--step-0)] font-bold text-fg">{record.title}</h4>
+                          <p className="mt-1 text-[length:var(--step--1)] text-fg-2">{record.linkedTo}</p>
+                        </div>
+                        <div className="rounded-token border border-line bg-bg px-3 py-2 text-right">
+                          <span className="block text-[length:var(--step--2)] font-semibold uppercase tracking-[0.14em] text-fg-3">
+                            Output
+                          </span>
+                          <span className="block text-[length:var(--step--1)] font-semibold text-gold">{record.output}</span>
+                        </div>
+                      </div>
+                      <div className="mt-4 flex flex-wrap items-center gap-2">
+                        {record.tags.map((tag) => (
+                          <span key={tag} className="rounded-full bg-bg-2 px-2.5 py-1 text-[length:var(--step--2)] font-medium text-fg-2">
+                            {tag}
+                          </span>
+                        ))}
+                        <span className="ml-auto inline-flex items-center gap-1.5 text-[length:var(--step--2)] font-semibold text-fg-3">
+                          <ShieldCheck className="size-3.5 text-gold" />
+                          {record.rights}
+                        </span>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+
+              <div className="grid gap-3 border-t border-line bg-bg-2 p-4 sm:grid-cols-3 sm:p-5">
+                {[
+                  { icon: Youtube, label: "Full fights", value: youtubeVideos.length },
+                  { icon: Instagram, label: "Social posts", value: instagramAssets.length },
+                  { icon: Layers3, label: "Reusable packs", value: "Press · sponsor · clips" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-3 rounded-token border border-line bg-surface p-3">
+                    <span className="grid size-9 place-items-center rounded-token bg-gold/10 text-gold">
+                      <item.icon className="size-4" />
+                    </span>
+                    <span>
+                      <span className="block text-[length:var(--step--2)] font-semibold uppercase tracking-[0.14em] text-fg-3">
+                        {item.label}
+                      </span>
+                      <span className="block font-display text-[length:var(--step-0)] font-bold text-fg">{item.value}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </Container>
+    </section>
   );
 }
 
@@ -72,6 +355,12 @@ export function MediaView() {
         title={t.media.title}
         intro={t.media.intro}
         backgroundSrc="/media/universal/sections/up-page-media.png"
+      />
+
+      <MediaVaultSection
+        indexedAssetCount={youtubeVideos.length + instagramAssets.length + all.length}
+        rosterCount={fighters.length}
+        mediaCount={all.length}
       />
 
       {/* Universal Promotions TV */}
