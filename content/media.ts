@@ -246,6 +246,7 @@ export const mediaItems: MediaItem[] = [
     relatedFighterSlugs: [],
     source: "youtube",
     sourceUrl: universalPromotionsTV.url,
+    thumbnailUrl: "/media/universal/hero-reel-knockouts-v3-poster.jpg",
     rightsStatus: "embed_only",
     isDemo: false,
     title: {
@@ -265,6 +266,7 @@ export const mediaItems: MediaItem[] = [
     hue: 44,
     source: "youtube",
     sourceUrl: universalPromotionsTV.url,
+    thumbnailUrl: "/media/universal/sections/up-section-training.png",
     rightsStatus: "public_reference",
     isDemo: false,
     title: {
@@ -284,6 +286,7 @@ export const mediaItems: MediaItem[] = [
     hue: 210,
     source: "podcast",
     sourceUrl: universalPromotionsTV.url,
+    thumbnailUrl: youtubeVideos[6].thumbnailSrc,
     rightsStatus: "public_reference",
     isDemo: true,
     title: {
