@@ -7,7 +7,7 @@ const badge = cva(
     variants: {
       tone: {
         gold: "border-transparent bg-gold/15 text-gold",
-        solidGold: "border-transparent bg-gold text-[var(--brand-ink)]",
+        solidGold: "border-transparent bg-gold !text-black",
         neutral: "border-line-2 bg-surface text-fg-2",
         outline: "border-line-2 bg-transparent text-fg-2",
         accent: "border-transparent bg-[color-mix(in_srgb,var(--accent)_16%,transparent)] text-accent",

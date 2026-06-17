@@ -395,7 +395,7 @@ export function MediaView() {
               <div className="mt-7 flex flex-wrap gap-3">
                 <ExternalLink
                   href={universalPromotionsTV.url}
-                  className="inline-flex items-center justify-center gap-2 rounded-token bg-gold px-5 py-3 text-[length:var(--step--1)] font-bold text-[var(--brand-ink)] shadow-[var(--shadow-gold)] hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2 rounded-token bg-gold px-5 py-3 text-[length:var(--step--1)] font-bold !text-black shadow-[var(--shadow-gold)] hover:-translate-y-0.5"
                 >
                   <Play className="size-4" />
                   Watch Universal Promotions TV

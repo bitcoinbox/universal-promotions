@@ -67,7 +67,7 @@ export function YouTubeAutoplay({
           <span aria-hidden className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-bg/70 to-transparent" />
           <span
             aria-hidden
-            className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gold text-[var(--brand-ink)] shadow-[var(--shadow-gold)] transition-transform duration-200 group-hover:scale-105"
+            className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gold !text-black shadow-[var(--shadow-gold)] transition-transform duration-200 group-hover:scale-105"
           >
             <Play className="size-7 translate-x-0.5" fill="currentColor" />
           </span>
@@ -143,7 +143,7 @@ export function YouTubeLite({
           )}
           <span
             aria-hidden
-            className="absolute left-1/2 top-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gold/95 text-[var(--brand-ink)] shadow-[var(--shadow-gold)] transition-transform duration-200 group-hover:scale-105"
+            className="absolute left-1/2 top-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gold/95 !text-black shadow-[var(--shadow-gold)] transition-transform duration-200 group-hover:scale-105"
           >
             <Play className="size-5 translate-x-0.5" fill="currentColor" />
           </span>

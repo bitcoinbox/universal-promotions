@@ -39,7 +39,7 @@ export function LifecycleStepper({ current }: { current: EventLifecycle }) {
               className={cn(
                 "relative z-10 grid size-8 place-items-center rounded-full border text-[length:var(--step--2)] font-semibold",
                 state === "done" && "border-transparent bg-[color-mix(in_srgb,var(--gold)_22%,transparent)] text-gold",
-                state === "current" && "border-gold bg-gold text-[var(--brand-ink)] shadow-[var(--shadow-gold)]",
+                state === "current" && "border-gold bg-gold !text-black shadow-[var(--shadow-gold)]",
                 state === "future" && "border-line bg-bg-2 text-fg-3",
               )}
             >

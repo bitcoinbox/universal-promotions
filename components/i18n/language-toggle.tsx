@@ -32,7 +32,7 @@ export function LanguageToggle({ className }: { className?: string }) {
             className={cn(
               "rounded-full px-3 py-1 font-semibold uppercase tracking-[0.13em] transition-colors duration-200",
               active
-                ? "bg-gold text-[var(--brand-ink)] shadow-[0_1px_0_rgba(255,255,255,0.3)_inset,0_2px_8px_color-mix(in_srgb,var(--gold)_35%,transparent)]"
+                ? "bg-gold !text-black shadow-[0_1px_0_rgba(255,255,255,0.3)_inset,0_2px_8px_color-mix(in_srgb,var(--gold)_35%,transparent)]"
                 : "text-fg-3 hover:text-fg",
             )}
           >

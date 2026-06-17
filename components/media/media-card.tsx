@@ -64,7 +64,7 @@ export function MediaCard({ item }: { item: MediaItem }) {
         <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-bg/10" />
         <div className="absolute inset-0 grid place-items-center">
           {isPlayable ? (
-            <span className="grid size-14 place-items-center rounded-full bg-gold text-[var(--brand-ink)] shadow-[var(--shadow-gold)] transition-transform duration-200 group-hover:scale-105">
+            <span className="grid size-14 place-items-center rounded-full bg-gold !text-black shadow-[var(--shadow-gold)] transition-transform duration-200 group-hover:scale-105">
               {isVideo ? <Play className="size-6 translate-x-0.5" fill="currentColor" /> : <Mic2 className="size-6" />}
             </span>
           ) : (

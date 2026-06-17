@@ -19,7 +19,7 @@ export const buttonVariants = cva(
         // hover-only, GPU transform — no runtime cost, and the global reduced-motion rule
         // zeroes the motion).
         primary:
-          "relative overflow-hidden text-[var(--brand-ink)] " +
+          "relative overflow-hidden !text-black " +
           "bg-[linear-gradient(135deg,var(--gold-soft)_0%,var(--gold)_46%,var(--gold-deep)_100%)] " +
           "shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_3px_16px_color-mix(in_srgb,var(--gold)_42%,transparent)] " +
           "hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,0.45)_inset,0_9px_28px_color-mix(in_srgb,var(--gold)_60%,transparent)] " +
