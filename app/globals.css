@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   UNIVERSAL PROMOTIONS — premium design tokens.
+   Direction: deep warm ink + championship gold + a restrained cobalt support
+   accent. Honors boxing (gold belts) and Puerto Rico (flag blue) without the
+   black/red sports cliché or SaaS gradients. One type scale, one easing system,
+   layered depth. Everything is referenced via @theme so you style with classes
+   (bg-surface, text-fg-2, rounded-token, shadow-elev) and never magic numbers.
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  /* color — dark-first, warm ink */
+  --bg: #0a0b0e;
+  --bg-2: #0d0f14;
+  --surface: #14161d;
+  --surface-2: #1b1e27;
+  --line: #262a34;
+  --line-2: #353b49;
+  --fg: #f4f2ea;
+  --fg-2: #a7adba;
+  /* muted text — kept dim but raised to clear WCAG 1.4.3 (≥4.5:1) on the lightest surface */
+  --fg-3: #8c919f;
+
+  /* brand — championship gold (primary) + cobalt (support) */
+  --gold: #e3b34e;
+  --gold-soft: #f1d089;
+  --gold-deep: #b07f2b;
+  --brand: var(--gold);
+  --brand-ink: #1c1505;
+  --accent: #5b9bff;
+  --accent-ink: #06122b;
+
+  /* status — used sparingly */
+  --live: #ff5a52;
+  --ok: #4bbf8a;
+  --warn: #e0a64b;
+
+  /* fluid type — one scale, no breakpoint jumps (clamp: min, preferred, max) */
+  --step--2: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.12rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --step-2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+  --step-3: clamp(2rem, 1.6rem + 2vw, 3.2rem);
+  --step-4: clamp(2.6rem, 2rem + 3vw, 4.6rem);
+  --step-5: clamp(3.2rem, 2.2rem + 5vw, 6.4rem);
+  --step-6: clamp(4rem, 2.6rem + 7vw, 9rem);
+
+  /* space base, radius, shadow */
+  --radius: 0.7rem;
+  --radius-sm: 0.45rem;
+  --radius-lg: 1.1rem;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 8px rgb(0 0 0 / 0.18);
+  --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.3), 0 24px 60px rgb(0 0 0 / 0.45);
+  --shadow-gold: 0 6px 22px color-mix(in srgb, var(--gold) 28%, transparent);
+
+  /* motion — ONE easing system used everywhere */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+  --dur: 180ms;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-brand: var(--brand);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-accent: var(--accent);
+  --color-live: var(--live);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --radius-token: var(--radius);
+  --radius-token-sm: var(--radius-sm);
+  --radius-token-lg: var(--radius-lg);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-elev: var(--shadow-lg);
+  --shadow-gold: var(--shadow-gold);
+  --ease-out: var(--ease);
+  --ease-spring: var(--ease-spring);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  /* Anton ships a single 400 weight. Never let the browser fake a heavier/italic
+     cut from it — synthesized bold/italic on a condensed display face looks broken.
+     Body fonts (Inter, JetBrains Mono) are variable, so their real weights are unaffected. */
+  font-synthesis: none;
+}
+
+/* display type: Anton (heavy condensed) for every heading — the fight-poster voice.
+   In @layer base so utility classes (font-*, leading-*, tracking-*, uppercase/normal-case)
+   can override it. Anton is a caps-forward face: it wants neutral tracking, not the tight
+   negative spacing that suited the old grotesque. */
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    line-height: 1.05;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+  /* Display-level headings (page + section titles) carry the loud, all-caps poster
+     voice. Card/sub headings (h3/h4) stay in their natural case for readability. */
+  h1, h2 {
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+  }
+}
+p { max-width: 68ch; text-wrap: pretty; }
+
+a { color: inherit; text-decoration: none; }
+::selection { background: color-mix(in srgb, var(--gold) 32%, transparent); color: var(--fg); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
+
+/* the one easing system, applied to anything interactive */
+a, button {
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease),
+    border-color var(--dur) var(--ease), transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+/* ── premium helpers ──────────────────────────────────────────────────────
+   Kept small and intentional — used where a single class beats repeating
+   token math across many components. */
+
+/* metallic gold foil text — for the wordmark and key headline accents */
+.text-gold-foil {
+  background: linear-gradient(165deg, var(--gold-soft) 0%, var(--gold) 42%, var(--gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* eyebrow / kicker label */
+.kicker {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--step--2);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+/* tabular numerals for records, dates, metrics */
+.tabular { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+/* hairline top divider */
+.hairline { border-top: 1px solid var(--line); }
+
+/* subtle technical grid — used behind ops / data surfaces only */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--line) 60%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 60%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* ─── Fight Ops console — instrument surfaces & broadcast framing ─────────── */
+
+/* engine-room band: layered depth + cobalt wash instead of a flat fill */
+.ops-shell {
+  background:
+    radial-gradient(140% 80% at 50% -10%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 58%),
+    radial-gradient(120% 70% at 50% 110%, color-mix(in srgb, var(--gold) 5%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--bg-2), var(--bg));
+}
+
+/* fine grid, masked so it fades at the edges (no hard rectangle) */
+.ops-grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--line) 50%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--line) 50%, transparent) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(130% 92% at 50% 0%, #000 32%, transparent 80%);
+  mask-image: radial-gradient(130% 92% at 50% 0%, #000 32%, transparent 80%);
+}
+
+/* signature panel surface: soft inner top highlight + layered shadow (real depth) */
+.ops-card {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 55%, transparent), transparent 96px),
+    var(--surface);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.04),
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 20px 50px -28px rgb(0 0 0 / 0.75);
+}
+
+/* broadcast corner ticks — opt-in framing for signature panels */
+.ops-ticks::before,
+.ops-ticks::after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+  border-color: color-mix(in srgb, var(--gold) 50%, transparent);
+}
+.ops-ticks::before { top: 9px; left: 9px; border-top: 1px solid; border-left: 1px solid; }
+.ops-ticks::after { bottom: 9px; right: 9px; border-bottom: 1px solid; border-right: 1px solid; }
+
+/* header rule: hairline with a short gold lead segment */
+.ops-rule {
+  height: 1px;
+  background: var(--line);
+}
+.ops-rule::before {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 2.25rem;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* very subtle film grain to keep large dark fills from banding */
+.bg-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes fight-action-pan {
+  from { transform: scale(1.1) translate3d(-1.5%, -1%, 0); }
+  to { transform: scale(1.16) translate3d(1.5%, 1%, 0); }
+}
+
+/* Fight Ops — readiness ring fills from empty to its value. Auto-disabled by the
+   reduced-motion block below (animation-duration forced to ~0). --ring-c = circumference. */
+@keyframes ops-ring-fill {
+  from { stroke-dashoffset: var(--ring-c); }
+}
+
+/* Fight Ops — sell-through path draws in left→right. --draw-len = path length. */
+@keyframes ops-draw {
+  from { stroke-dashoffset: var(--draw-len); }
+  to { stroke-dashoffset: 0; }
+}
+
+.event-action-card iframe,
+iframe[title*="background footage"] {
+  display: none !important;
+}
+
+/* premium ALWAYS respects reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
